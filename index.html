@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tu Nombre — Reels</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #0a0a0b;
+      --surface: #131315;
+      --border: #222225;
+      --text: #eeeef0;
+      --muted: #7a7a80;
+      --accent: #c8ff2e;
+      --accent-dim: #c8ff2e22;
+      --card-r: 28px;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg); color: var(--text);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── TOP BAR ── */
+    .topbar {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: .9rem 2rem;
+      background: #0a0a0be0;
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .topbar-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700; font-size: 1rem;
+      letter-spacing: -.01em;
+    }
+    .topbar-name span { color: var(--accent); }
+    .topbar-contact a {
+      font-size: .78rem; font-weight: 500;
+      color: var(--bg); background: var(--accent);
+      padding: .45rem 1.1rem; border-radius: 80px;
+      text-decoration: none;
+      transition: opacity .2s;
+    }
+    .topbar-contact a:hover { opacity: .85; }
+    .topbar-contact a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+    /* ── INTRO ── */
+    .intro {
+      max-width: 620px;
+      padding: 4rem 2rem 1rem;
+    }
+    .intro h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 700; letter-spacing: -.025em;
+      line-height: 1.15;
+    }
+    .intro h1 em { font-style: normal; color: var(--accent); }
+    .intro p {
+      color: var(--muted); font-size: .92rem;
+      margin-top: .6rem; font-weight: 300;
+      max-width: 460px;
+    }
+
+    /* ── FILTERS ── */
+    .filters {
+      padding: 1.2rem 2rem 2rem;
+      display: flex; flex-wrap: wrap; gap: .5rem;
+    }
+    .filter-btn {
+      padding: .4rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 80px;
+      background: transparent;
+      color: var(--muted);
+      font-family: 'Inter', sans-serif;
+      font-size: .78rem; font-weight: 500;
+      cursor: pointer;
+      transition: all .2s;
+    }
+    .filter-btn:hover { border-color: var(--accent); color: var(--text); }
+    .filter-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .filter-btn.active {
+      background: var(--accent); color: var(--bg);
+      border-color: var(--accent);
+    }
+
+    /* ── GALLERY GRID ── */
+    .gallery {
+      padding: 0 1.5rem 4rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 1.25rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    /* ── REEL CARD ── */
+    .reel {
+      aspect-ratio: 9 / 16;
+      border-radius: var(--card-r);
+      overflow: hidden;
+      position: relative;
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      cursor: pointer;
+      transition: border-color .3s, transform .3s, box-shadow .3s;
+      display: block;
+      text-decoration: none; color: inherit;
+    }
+    .reel:hover {
+      border-color: var(--accent);
+      transform: translateY(-5px) scale(1.01);
+      box-shadow: 0 16px 48px #c8ff2e10;
+    }
+
+    .reel-visual {
+      position: absolute; inset: 0;
+    }
+    .reel-visual .gradient-bg {
+      position: absolute; inset: 0;
+    }
+    .reel[data-style="1"] .gradient-bg { background: linear-gradient(155deg, #1b1135 0%, #0d2137 50%, #0a1a12 100%); }
+    .reel[data-style="2"] .gradient-bg { background: linear-gradient(155deg, #2a1a0a 0%, #1a0a1e 50%, #0f1a2a 100%); }
+    .reel[data-style="3"] .gradient-bg { background: linear-gradient(155deg, #0a2020 0%, #162030 50%, #1a0a20 100%); }
+    .reel[data-style="4"] .gradient-bg { background: linear-gradient(155deg, #201a10 0%, #101820 50%, #0a1520 100%); }
+    .reel[data-style="5"] .gradient-bg { background: linear-gradient(155deg, #1a0a18 0%, #0a1a28 50%, #102010 100%); }
+    .reel[data-style="6"] .gradient-bg { background: linear-gradient(155deg, #0d1a2d 0%, #1a2010 50%, #201510 100%); }
+    .reel[data-style="7"] .gradient-bg { background: linear-gradient(155deg, #1a1025 0%, #0d2020 50%, #201a0a 100%); }
+    .reel[data-style="8"] .gradient-bg { background: linear-gradient(155deg, #10200d 0%, #0a1a2a 50%, #1a1020 100%); }
+
+    .play {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 54px; height: 54px;
+      border-radius: 50%;
+      background: #ffffff18;
+      backdrop-filter: blur(6px);
+      border: 1.5px solid #ffffff30;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0;
+      transition: opacity .25s;
+    }
+    .play svg { fill: #fff; width: 18px; height: 18px; margin-left: 2px; }
+    .reel:hover .play { opacity: 1; }
+
+    .reel-info {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 3rem 1rem 1rem;
+      background: linear-gradient(transparent 0%, #000c 100%);
+    }
+    .reel-category {
+      font-size: .58rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .12em;
+      color: var(--accent);
+      margin-bottom: .35rem;
+    }
+    .reel-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: .82rem; font-weight: 600;
+      line-height: 1.3;
+      margin-bottom: .2rem;
+    }
+    .reel-desc {
+      font-size: .7rem; color: var(--muted);
+      line-height: 1.4;
+    }
+
+    .reel-technique {
+      position: absolute; top: .8rem; left: .8rem;
+      font-size: .58rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: .08em;
+      padding: .25rem .6rem;
+      border-radius: 6px;
+      background: #00000088;
+      backdrop-filter: blur(6px);
+      border: 1px solid #ffffff15;
+      color: #fff;
+      z-index: 2;
+    }
+
+    .reel-platform {
+      position: absolute; top: .8rem; right: .8rem;
+      font-size: .72rem;
+      background: #00000066;
+      backdrop-filter: blur(6px);
+      border-radius: 6px;
+      padding: .2rem .45rem;
+      z-index: 2;
+    }
+
+    /* ── TOOLKIT ── */
+    .divider-label {
+      padding: 2rem 2rem .5rem;
+      max-width: 1400px; margin: 0 auto;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: .7rem; font-weight: 600;
+      letter-spacing: .15em; text-transform: uppercase;
+      color: var(--accent);
+      border-top: 1px solid var(--border);
+    }
+    .divider-title {
+      padding: 0 2rem 1.5rem;
+      max-width: 1400px; margin: 0 auto;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.15rem; font-weight: 600;
+      letter-spacing: -.01em;
+    }
+    .toolkit {
+      max-width: 1400px; margin: 0 auto;
+      padding: 0 2rem 4rem;
+      display: flex; flex-wrap: wrap; gap: .6rem;
+    }
+    .tool {
+      padding: .45rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 80px;
+      font-size: .75rem; font-weight: 500;
+      color: var(--muted);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2.5rem 2rem;
+      display: flex; flex-wrap: wrap;
+      align-items: center; justify-content: space-between;
+      gap: 1rem;
+      max-width: 1400px; margin: 0 auto;
+    }
+    .footer-left {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: .85rem; font-weight: 600;
+    }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a {
+      font-size: .8rem; color: var(--muted);
+      text-decoration: none; transition: color .2s;
+    }
+    .footer-links a:hover { color: var(--accent); }
+    .footer-links a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+    @media (max-width: 600px) {
+      .gallery { grid-template-columns: repeat(2, 1fr); gap: .8rem; padding: 0 .8rem 3rem; }
+      .intro { padding: 3rem 1.2rem .8rem; }
+      .filters { padding: .8rem 1.2rem 1.2rem; }
+      .reel-technique { font-size: .5rem; }
+      .reel-title { font-size: .72rem; }
+      .reel-info { padding: 0 .7rem .7rem; padding-top: 2rem; }
+      footer { padding: 2rem 1.2rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-name">tu<span>.</span>nombre</div>
+  <div class="topbar-contact">
+    <a href="mailto:tu@email.com">Contactar</a>
+  </div>
+</div>
+
+<div class="intro">
+  <h1>Reels que <em>paran el scroll</em></h1>
+  <p>Edición short-form · Instagram · TikTok · YouTube Shorts</p>
+</div>
+
+<div class="filters">
+  <button class="filter-btn active" data-filter="all">Todo</button>
+  <button class="filter-btn" data-filter="producto">Producto</button>
+  <button class="filter-btn" data-filter="gastro">Gastro</button>
+  <button class="filter-btn" data-filter="fitness">Fitness</button>
+  <button class="filter-btn" data-filter="moda">Moda</button>
+  <button class="filter-btn" data-filter="educativo">Educativo</button>
+  <button class="filter-btn" data-filter="travel">Travel</button>
+  <button class="filter-btn" data-filter="ugc">UGC</button>
+</div>
+
+<div class="gallery" id="gallery">
+
+  <a class="reel" data-style="1" data-cat="producto" href="#" target="_blank">
+    <div class="reel-visual">
+      <div class="gradient-bg"></div>
+      <span class="reel-technique">Speed Ramp</span>
+      <span class="reel-platform">📱 IG</span>
+      <div class="play"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
+    </div>
+    <div class="reel-info">
+      <div class="reel-category">Producto</div>
+      <div class="reel-title">Unboxing dinámico — tech gadget</div>
+      <div class="reel-desc">Speed ramp al abrir la caja + zoom al detalle del producto. Corte a beat con bass drop en el reveal.</div>
+    </div>
+  </a>
+
+  <a class="reel" data-style="2" data-cat="gastro" href="#" target="_blank">
+    <div class="reel-visual">
+      <div class="gradient-bg"></div>
+      <span class="reel-technique">Beat Sync</span>
+      <span class="reel-platform">📱 TT</span>
+      <div class="play"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
+    </div>
+    <div class="reel-info">
+      <div class="reel-category">Gastro</div>
+      <div class="reel-title">Montaje de platos — ritmo y texturas</div>
+      <div class="reel-desc">Close-ups de salsas cayendo, cortes al fuego, mise en place. Cada golpe del track = un cambio de plano.</div>
+    </div>
+  </a>
+
+  <a class="reel" data-style="3" data-cat="fitness" href="#" target="_blank">
+    <div class="reel-visual">
+      <div class="gradient-bg"></div>
+      <span class="reel-technique">Morph Cut</span>
+      <span class="reel-platform">📱 IG</span>
+      <div class="play"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
+    </div>
+    <div class="reel-info">
+      <div class="reel-category">Fitness</div>
+      <div class="reel-title">Transformación antes/después</div>
+      <div class="reel-desc">Transición morph entre el día 1 y el resultado. Misma pose, misma cámara, fundido con máscara de forma.</div>
+    </div>
+  </a>
+
+  <a class="reel" data-style="4" data-cat="educativo" href="#" target="_blank">
+    <div class="reel-visual">
+      <div class="gradient-bg"></div>
+      <span class="reel-technique">Kinetic Type</span>
+      <span class="reel-platform">📱 TT</span>
+      <div class="play"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
+    </div>
+    <div class="reel-info">
+      <div class="reel-category">Educativo</div>
+      <div class="reel-title">3 errores que cometes al grabar</div>
+      <div class="reel-desc">Texto animado palabra por palabra sincronizado al voiceover. Zoom-in en las palabras clave, shake en los errores.</div>
+    </div>
+  </a>
+
+  <a class="reel" data-style="5" data-cat="moda" href="#" target="_blank">
+    <div class="reel-visual">
+      <div class="gradient-bg"></div>
+      <span class="reel-technique">Sound Design</span>
+      <span class="reel-platform">📱 IG</span>
+      <div class="play"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
+    </div>
+    <div class="reel-info">
+      <div class="reel-category">Moda</div>
+      <div class="reel-title">Outfit check — ASMR + cuts</div>
+      <div class="reel-desc">SFX de tela, cremallera, snap al corte. Cada prenda revelada con swoosh + whip pan entre looks.</div>
+    </div>
+  </a>
+
+  <a class="reel" data-style="6" data-cat="travel" href="#" target="_blank">
+    <div class="reel-visual">
+      <div class="gradient-bg"></div>
+      <span class="reel-technique">Color Grade</span>
+      <span class="reel-platform">📱 YT</span>
+      <div class="play"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
+    </div>
+    <div class="reel-info">
+      <div class="reel-category">Travel</div>
+      <div class="reel-title">Cinematic city walk — LUT custom</div>
+      <div class="reel-desc">Slow-mo + speed ramp alterno. Grano fílmico sutil, palette fría/cálida por bloques, tilt shifts.</div>
+    </div>
+  </a>
+
+  <a class="reel" data-style="7" data-cat="producto" href="#" target="_blank">
+    <div class="reel-visual">
+      <div class="gradient-bg"></div>
+      <span class="reel-technique">Zoom Through</span>
+      <span class="reel-platform">📱 TT</span>
+      <div class="play"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
+    </div>
+    <div class="reel-info">
+      <div class="reel-category">Producto</div>
+      <div class="reel-title">Skincare — reveal de textura</div>
+      <div class="reel-desc">Zoom-through desde el envase al close-up de la crema. Macro de textura cayendo en slow-mo, SFX de gota.</div>
+    </div>
+  </a>
+
+  <a class="reel" data-style="8" data-cat="ugc" href="#" target="_blank">
+    <div class="reel-visual">
+      <div class="gradient-bg"></div>
+      <span class="reel-technique">Split Screen</span>
+      <span class="reel-platform">📱 IG</span>
+      <div class="play"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
+    </div>
+    <div class="reel-info">
+      <div class="reel-category">UGC</div>
+      <div class="reel-title">Antes/después — limpieza de zapatillas</div>
+      <div class="reel-desc">Wipe lateral del antes al después. Timelapse acelerado del proceso intermedio con cortes rítmicos.</div>
+    </div>
+  </a>
+
+  <a class="reel" data-style="1" data-cat="gastro" href="#" target="_blank">
+    <div class="reel-visual">
+      <div class="gradient-bg"></div>
+      <span class="reel-technique">Jump Cuts</span>
+      <span class="reel-platform">📱 TT</span>
+      <div class="play"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
+    </div>
+    <div class="reel-info">
+      <div class="reel-category">Gastro</div>
+      <div class="reel-title">Receta en 30s — overhead cenital</div>
+      <div class="reel-desc">Plano cenital fijo, jump cuts rápidos de cada paso. Subtítulos minimalistas + SFX de cocina exagerados.</div>
+    </div>
+  </a>
+
+  <a class="reel" data-style="3" data-cat="fitness" href="#" target="_blank">
+    <div class="reel-visual">
+      <div class="gradient-bg"></div>
+      <span class="reel-technique">Whip Pan</span>
+      <span class="reel-platform">📱 YT</span>
+      <div class="play"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
+    </div>
+    <div class="reel-info">
+      <div class="reel-category">Fitness</div>
+      <div class="reel-title">Rutina 5 ejercicios — transiciones whip</div>
+      <div class="reel-desc">Whip pan entre cada ejercicio, mismo eje de cámara. Cuenta regresiva con texto animado, riser de tensión.</div>
+    </div>
+  </a>
+
+  <a class="reel" data-style="5" data-cat="moda" href="#" target="_blank">
+    <div class="reel-visual">
+      <div class="gradient-bg"></div>
+      <span class="reel-technique">Mask Wipe</span>
+      <span class="reel-platform">📱 IG</span>
+      <div class="play"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
+    </div>
+    <div class="reel-info">
+      <div class="reel-category">Moda</div>
+      <div class="reel-title">Lookbook 5 outfits — mask transition</div>
+      <div class="reel-desc">Máscara con el movimiento de la mano que revela el siguiente look. Color grade cálido pastel unificado.</div>
+    </div>
+  </a>
+
+  <a class="reel" data-style="4" data-cat="educativo" href="#" target="_blank">
+    <div class="reel-visual">
+      <div class="gradient-bg"></div>
+      <span class="reel-technique">Glitch + Type</span>
+      <span class="reel-platform">📱 TT</span>
+      <div class="play"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
+    </div>
+    <div class="reel-info">
+      <div class="reel-category">Educativo</div>
+      <div class="reel-title">Hook polémico — "nadie te dice esto"</div>
+      <div class="reel-desc">Glitch de apertura + zoom rápido a la cara. Texto grande en caps que aparece con shake. Retención +80%.</div>
+    </div>
+  </a>
+
+</div>
+
+<div class="divider-label">Herramientas</div>
+<div class="divider-title">Software que uso a diario</div>
+<div class="toolkit">
+  <span class="tool">Premiere Pro</span>
+  <span class="tool">After Effects</span>
+  <span class="tool">DaVinci Resolve</span>
+  <span class="tool">CapCut Pro</span>
+  <span class="tool">Photoshop</span>
+  <span class="tool">Audition</span>
+  <span class="tool">Mocha Pro</span>
+</div>
+
+<footer>
+  <div class="footer-left">tu<span style="color:var(--accent)">.</span>nombre</div>
+  <div class="footer-links">
+    <a href="mailto:tu@email.com">Email</a>
+    <a href="https://instagram.com/tu_handle" target="_blank">Instagram</a>
+    <a href="https://tiktok.com/@tu_handle" target="_blank">TikTok</a>
+    <a href="https://linkedin.com/in/tu_perfil" target="_blank">LinkedIn</a>
+  </div>
+</footer>
+
+<script>
+  const btns = document.querySelectorAll('.filter-btn');
+  const reels = document.querySelectorAll('.reel');
+
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      btns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const cat = btn.dataset.filter;
+      reels.forEach(r => {
+        r.style.display = (cat === 'all' || r.dataset.cat === cat) ? '' : 'none';
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
