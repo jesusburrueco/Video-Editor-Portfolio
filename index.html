@@ -254,6 +254,17 @@
       .piece-comparison { grid-template-columns: 1fr; }
       .piece-title { font-size: 1.1rem; }
       footer { padding: 2rem 1.2rem; }
+    
+      .piece-video video {
+        height: 80vh;
+        max-height: 80vh;
+        object-fit: cover;
+        object-position: -270px;
+      }
+    
+      .play-overlay {
+        display: none;
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
