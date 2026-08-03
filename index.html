@@ -475,6 +475,11 @@ document.querySelectorAll('.piece-video').forEach(container => {
     placeholder.style.display = 'none';
   }
 
+  video.addEventListener('canplay', () => {
+    overlay.classList.add('hidden');
+    container.classList.add('playing');
+  }, { once: true });
+
   // Play / Pause on click
   overlay.addEventListener('click', () => {
     if (video.paused) {
