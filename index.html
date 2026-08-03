@@ -29,7 +29,6 @@
       line-height: 1.6;
     }
 
-    /* ── TOP BAR ── */
     .topbar {
       position: sticky; top: 0; z-index: 100;
       display: flex; align-items: center; justify-content: space-between;
@@ -51,7 +50,6 @@
     }
     .topbar a:hover { opacity: .85; }
 
-    /* ── HERO ── */
     .hero {
       max-width: var(--max-w);
       margin: 0 auto;
@@ -76,7 +74,7 @@
       font-weight: 300;
     }
 
-    /* ── PIECE ── */
+    /* ── PIECES ── */
     .pieces {
       max-width: var(--max-w);
       margin: 0 auto;
@@ -94,48 +92,91 @@
     }
     .piece:hover { border-color: #c8ff2e33; }
 
-    /* top: video area */
+    /* ── VIDEO AREA ── */
     .piece-video {
-      aspect-ratio: 16 / 9;
       position: relative;
       overflow: hidden;
       border-bottom: 1px solid var(--border);
+      background: #000;
+      cursor: pointer;
     }
-    .piece:nth-child(1) .piece-video { background: linear-gradient(135deg, #1a0a28 0%, #0d1a2d 50%, #0a1a12 100%); }
-    .piece:nth-child(2) .piece-video { background: linear-gradient(135deg, #201a0a 0%, #0a1a28 50%, #1a1025 100%); }
-    .piece:nth-child(3) .piece-video { background: linear-gradient(135deg, #0a2020 0%, #1a0a18 50%, #201510 100%); }
-    .piece:nth-child(4) .piece-video { background: linear-gradient(135deg, #0d1a2d 0%, #201a0a 50%, #0a2020 100%); }
+
+    .piece-video video {
+      width: 100%;
+      display: block;
+      max-height: 480px;
+      object-fit: contain;
+      background: #000;
+    }
 
     .piece-num {
       position: absolute; top: 1rem; left: 1rem;
       font-family: 'Space Grotesk', sans-serif;
       font-size: .6rem; font-weight: 700;
       color: var(--accent);
-      background: #00000077;
+      background: #000000aa;
       backdrop-filter: blur(6px);
       padding: .2rem .55rem;
       border-radius: 6px;
       letter-spacing: .08em;
+      z-index: 3;
+      pointer-events: none;
     }
 
-    .play-center {
-      position: absolute; top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      width: 60px; height: 60px;
-      border-radius: 50%;
-      background: #ffffff12;
-      backdrop-filter: blur(8px);
-      border: 1.5px solid #ffffff22;
+    /* play overlay */
+    .play-overlay {
+      position: absolute; inset: 0;
       display: flex; align-items: center; justify-content: center;
-      opacity: 0; transition: opacity .25s;
+      background: #00000044;
+      transition: opacity .3s;
+      z-index: 2;
     }
-    .play-center svg { fill: #fff; width: 20px; height: 20px; margin-left: 3px; }
-    .piece:hover .play-center { opacity: 1; }
+    .play-overlay.hidden { opacity: 0; pointer-events: none; }
+    .play-circle {
+      width: 64px; height: 64px;
+      border-radius: 50%;
+      background: #ffffff18;
+      backdrop-filter: blur(8px);
+      border: 1.5px solid #ffffff28;
+      display: flex; align-items: center; justify-content: center;
+      transition: transform .2s;
+    }
+    .play-circle:hover { transform: scale(1.08); }
+    .play-circle svg { fill: #fff; width: 22px; height: 22px; margin-left: 3px; }
 
-    /* bottom: text */
-    .piece-body {
-      padding: 1.8rem 2rem 2rem;
+    /* sound toggle */
+    .sound-btn {
+      position: absolute; bottom: .8rem; right: .8rem;
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: #000000aa;
+      backdrop-filter: blur(6px);
+      border: 1px solid #ffffff20;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      z-index: 3;
+      opacity: 0;
+      transition: opacity .3s;
     }
+    .piece-video:hover .sound-btn,
+    .piece-video.playing .sound-btn { opacity: 1; }
+    .sound-btn svg { fill: #fff; width: 16px; height: 16px; }
+
+    /* placeholder when no video src yet */
+    .piece-video .placeholder-msg {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: .5rem;
+      color: var(--muted);
+      font-size: .8rem;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .placeholder-msg .icon { font-size: 1.5rem; opacity: .5; }
+
+    /* ── TEXT BODY ── */
+    .piece-body { padding: 1.8rem 2rem 2rem; }
 
     .piece-comparison {
       display: grid;
@@ -187,7 +228,6 @@
       font-weight: 500;
     }
 
-    /* ── FOOTER ── */
     footer {
       border-top: 1px solid var(--border);
       padding: 2.5rem 2rem;
@@ -207,7 +247,6 @@
     }
     .footer-links a:hover { color: var(--accent); }
 
-    /* ── RESPONSIVE ── */
     @media (max-width: 600px) {
       .hero { padding: 3.5rem 1.2rem 1rem; }
       .pieces { padding: 2rem 1.2rem 4rem; }
@@ -225,11 +264,10 @@
 <body>
 
 <div class="topbar">
-  <div class="topbar-name">Jesús<span>.</span>Burrueco</div>
+  <div class="topbar-name">jesús<span>.</span>burrueco</div>
   <a href="mailto:tu@email.com">Contactar</a>
 </div>
 
-<!-- HERO -->
 <div class="hero">
   <div class="hero-label">Edición de reels</div>
   <h1>Mismo contenido, <em>el doble de retención</em></h1>
@@ -240,14 +278,31 @@
   </p>
 </div>
 
-<!-- PIECES -->
 <div class="pieces">
 
-  <!-- 1 — SUBTÍTULOS CON VIDA PROPIA -->
-  <a style="text-decoration: none;" class="piece" href="http://realitycdc.com/wp-content/uploads/2026/08/video1.mp4" target="_blank">
-    <div class="piece-video">
+  <!-- 1 — SUBTÍTULOS -->
+  <div class="piece">
+    <div class="piece-video" data-index="0">
       <span class="piece-num">01 / 04</span>
-      <div class="play-center"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
+      <!--
+        CÓMO AÑADIR TU VIDEO:
+        Sube el archivo .mp4 al repo de GitHub junto al index.html
+        y cambia el src por el nombre de tu archivo, ejemplo: src="reel-subtitulos.mp4"
+      -->
+      <video
+        src="http://realitycdc.com/wp-content/uploads/2026/08/video1.mp4"
+        preload="metadata"
+        loop
+        playsinline
+        webkit-playsinline
+      ></video>
+      
+      <div class="play-overlay">
+        <div class="play-circle"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
+      </div>
+      <button class="sound-btn" title="Activar sonido">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0014 8.5v7a4.49 4.49 0 002.5-3.5zM14 3.23v2.06a6.5 6.5 0 010 13.42v2.06A8.5 8.5 0 0014 3.23z"/></svg>
+      </button>
     </div>
     <div class="piece-body">
       <h2 class="piece-title">Subtítulos con vida propia</h2>
@@ -266,17 +321,31 @@
         del creador (usando máscara), las palabras secundarias
         aparecen más pequeñas arriba o abajo. Cuando el creador dice
         algo negativo el texto sale en rojo, cuando es positivo en verde.
-        El resultado: el espectador procesa el mensaje con los ojos
-        sin necesidad de leer.
       </p>
     </div>
-  </a>
+  </div>
 
-  <!-- 2 — MULTI-ÁNGULO FALSO -->
-  <a class="piece" href="#" target="_blank">
-    <div class="piece-video">
+  <!-- 2 — MULTI-ÁNGULO -->
+  <div class="piece">
+    <div class="piece-video" data-index="1">
       <span class="piece-num">02 / 04</span>
-      <div class="play-center"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
+      <video
+        src=""
+        preload="metadata"
+        loop
+        playsinline
+        webkit-playsinline
+      ></video>
+      <div class="placeholder-msg">
+        <span class="icon">🎬</span>
+        Añade tu video: src="reel-multiangulo.mp4"
+      </div>
+      <div class="play-overlay">
+        <div class="play-circle"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
+      </div>
+      <button class="sound-btn" title="Activar sonido">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0014 8.5v7a4.49 4.49 0 002.5-3.5zM14 3.23v2.06a6.5 6.5 0 010 13.42v2.06A8.5 8.5 0 0014 3.23z"/></svg>
+      </button>
     </div>
     <div class="piece-body">
       <h2 class="piece-title">Multi-ángulo falso</h2>
@@ -294,17 +363,32 @@
         <strong>Recorto y reposiciono el mismo clip</strong> en tres encuadres
         distintos: centro (plano medio), izquierda (simula perfil),
         y zoom a la cara (close-up). Los cortes entre "ángulos"
-        rompen la monotonía del talking head y le dan ritmo de
-        entrevista profesional sin necesitar más equipo.
+        le dan ritmo de entrevista profesional sin necesitar más equipo.
       </p>
     </div>
-  </a>
+  </div>
 
-  <!-- 3 — B-ROLL RÍTMICO -->
-  <a class="piece" href="#" target="_blank">
-    <div class="piece-video">
+  <!-- 3 — B-ROLL -->
+  <div class="piece">
+    <div class="piece-video" data-index="2">
       <span class="piece-num">03 / 04</span>
-      <div class="play-center"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
+      <video
+        src=""
+        preload="metadata"
+        loop
+        playsinline
+        webkit-playsinline
+      ></video>
+      <div class="placeholder-msg">
+        <span class="icon">🎬</span>
+        Añade tu video: src="reel-broll.mp4"
+      </div>
+      <div class="play-overlay">
+        <div class="play-circle"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
+      </div>
+      <button class="sound-btn" title="Activar sonido">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0014 8.5v7a4.49 4.49 0 002.5-3.5zM14 3.23v2.06a6.5 6.5 0 010 13.42v2.06A8.5 8.5 0 0014 3.23z"/></svg>
+      </button>
     </div>
     <div class="piece-body">
       <h2 class="piece-title">B-roll a prueba de scroll</h2>
@@ -322,24 +406,39 @@
         <strong>Cada inserción de b-roll tiene entrada, clímax y salida</strong>
         en menos de 2 segundos. Entra con zoom, sale con corte seco
         de vuelta al creador. El voiceover nunca para — el b-roll
-        es un flash visual que refuerza el mensaje sin interrumpir
-        el ritmo. Añado un SFX sutil (swoosh o impact) en cada entrada.
+        es un flash visual que refuerza sin interrumpir.
       </p>
     </div>
-  </a>
+  </div>
 
-  <!-- 4 — PANTALLA DIVIDIDA DINÁMICA -->
-  <a class="piece" href="#" target="_blank">
-    <div class="piece-video">
+  <!-- 4 — SPLIT DINÁMICO -->
+  <div class="piece">
+    <div class="piece-video" data-index="3">
       <span class="piece-num">04 / 04</span>
-      <div class="play-center"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
+      <video
+        src=""
+        preload="metadata"
+        loop
+        playsinline
+        webkit-playsinline
+      ></video>
+      <div class="placeholder-msg">
+        <span class="icon">🎬</span>
+        Añade tu video: src="reel-split.mp4"
+      </div>
+      <div class="play-overlay">
+        <div class="play-circle"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
+      </div>
+      <button class="sound-btn" title="Activar sonido">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0014 8.5v7a4.49 4.49 0 002.5-3.5zM14 3.23v2.06a6.5 6.5 0 010 13.42v2.06A8.5 8.5 0 0014 3.23z"/></svg>
+      </button>
     </div>
     <div class="piece-body">
       <h2 class="piece-title">Pantalla dividida dinámica</h2>
       <div class="piece-comparison">
         <div class="comp-box comp-before">
           <span class="comp-label">Lo normal</span>
-          Split estático 50/50 que se queda ahí todo el reel. O directamente el creador hablando sin apoyo visual.
+          Split estático 50/50 todo el reel. O el creador hablando sin apoyo visual.
         </div>
         <div class="comp-box comp-after">
           <span class="comp-label">Mi versión</span>
@@ -350,12 +449,11 @@
         <strong>El creador habla arriba, el ejemplo aparece abajo</strong>
         — grabación de pantalla, producto, proceso. La parte de abajo
         empieza como franja fina y crece con keyframes hasta dominar el frame
-        en el momento de mayor impacto. Después vuelve al creador.
-        El movimiento del split guía la atención sin que el espectador
-        lo decida conscientemente.
+        en el momento de mayor impacto. El movimiento del split guía la
+        atención sin que el espectador lo decida.
       </p>
     </div>
-  </a>
+  </div>
 
 </div>
 
@@ -367,6 +465,56 @@
     <a href="https://tiktok.com/@tu_handle" target="_blank">TikTok</a>
   </div>
 </footer>
+
+<script>
+document.querySelectorAll('.piece-video').forEach(container => {
+  const video = container.querySelector('video');
+  const overlay = container.querySelector('.play-overlay');
+  const soundBtn = container.querySelector('.sound-btn');
+  const placeholder = container.querySelector('.placeholder-msg');
+
+  // Hide placeholder if video has a real src
+  if (video.src && !video.src.endsWith('/')) {
+    placeholder.style.display = 'none';
+  }
+
+  // Play / Pause on click
+  overlay.addEventListener('click', () => {
+    if (video.paused) {
+      // Pause all other videos first
+      document.querySelectorAll('.piece-video video').forEach(v => {
+        if (v !== video) {
+          v.pause();
+          v.closest('.piece-video').querySelector('.play-overlay').classList.remove('hidden');
+          v.closest('.piece-video').classList.remove('playing');
+        }
+      });
+      video.play();
+      overlay.classList.add('hidden');
+      container.classList.add('playing');
+    }
+  });
+
+  // Click on video to pause
+  video.addEventListener('click', () => {
+    if (!video.paused) {
+      video.pause();
+      overlay.classList.remove('hidden');
+      container.classList.remove('playing');
+    }
+  });
+
+  // Sound toggle
+  video.muted = true;
+  soundBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    video.muted = !video.muted;
+    soundBtn.innerHTML = video.muted
+      ? '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="#fff" d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0014 8.5v7a4.49 4.49 0 002.5-3.5zM14 3.23v2.06a6.5 6.5 0 010 13.42v2.06A8.5 8.5 0 0014 3.23z"/></svg>'
+      : '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="#c8ff2e" d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0014 8.5v7a4.49 4.49 0 002.5-3.5zM14 3.23v2.06a6.5 6.5 0 010 13.42v2.06A8.5 8.5 0 0014 3.23z"/></svg>';
+  });
+});
+</script>
 
 </body>
 </html>
