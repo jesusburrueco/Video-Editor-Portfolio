@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tu Nombre — El futuro de los reels</title>
+  <title>Jesús Burrueco — Edición de Reels</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
@@ -13,13 +13,12 @@
     :root {
       --bg: #08080a;
       --surface: #111113;
-      --border: #1f1f22;
+      --border: #1e1e21;
       --text: #eeeef0;
       --muted: #737378;
       --accent: #c8ff2e;
-      --accent-dim: #c8ff2e18;
-      --card-r: 32px;
-      --max-w: 900px;
+      --accent-dim: #c8ff2e15;
+      --max-w: 860px;
     }
 
     html { scroll-behavior: smooth; }
@@ -52,172 +51,140 @@
     }
     .topbar a:hover { opacity: .85; }
 
-    /* ── HERO / MANIFIESTO ── */
+    /* ── HERO ── */
     .hero {
       max-width: var(--max-w);
       margin: 0 auto;
-      padding: 6rem 2rem 2rem;
+      padding: 5rem 2rem 1.5rem;
     }
     .hero-label {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: .7rem; font-weight: 600;
+      font-size: .68rem; font-weight: 600;
       letter-spacing: .18em; text-transform: uppercase;
-      color: var(--accent); margin-bottom: 1.2rem;
+      color: var(--accent); margin-bottom: 1rem;
     }
     .hero h1 {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-size: clamp(1.8rem, 4.5vw, 2.8rem);
       font-weight: 700; letter-spacing: -.03em;
       line-height: 1.1;
     }
     .hero h1 em { font-style: normal; color: var(--accent); }
     .hero-sub {
-      color: var(--muted); font-size: 1rem;
-      margin-top: 1.2rem; max-width: 560px;
+      color: var(--muted); font-size: .95rem;
+      margin-top: 1rem; max-width: 520px;
       font-weight: 300;
     }
-    .hero-line {
-      width: 48px; height: 2px;
-      background: var(--accent);
-      margin-top: 2.5rem;
-      border: none;
-    }
 
-    /* ── PIECE CARD ── */
+    /* ── PIECE ── */
     .pieces {
       max-width: var(--max-w);
       margin: 0 auto;
-      padding: 2rem 2rem 6rem;
+      padding: 3rem 2rem 5rem;
       display: flex; flex-direction: column;
-      gap: 2rem;
+      gap: 2.5rem;
     }
 
     .piece {
-      display: grid;
-      grid-template-columns: 240px 1fr;
-      gap: 2rem;
       border: 1px solid var(--border);
-      border-radius: var(--card-r);
+      border-radius: 28px;
       background: var(--surface);
-      padding: 1.5rem;
-      transition: border-color .3s;
-      text-decoration: none; color: inherit;
-    }
-    .piece:hover { border-color: #c8ff2e44; }
-
-    /* phone frame */
-    .piece-phone {
-      aspect-ratio: 9 / 16;
-      border-radius: 22px;
       overflow: hidden;
-      position: relative;
-      border: 1.5px solid var(--border);
-      cursor: pointer;
-      transition: border-color .3s, transform .3s;
+      transition: border-color .3s;
     }
-    .piece:hover .piece-phone {
-      border-color: var(--accent);
-      transform: translateY(-3px);
-    }
-    .piece-phone .gradient-bg {
-      position: absolute; inset: 0;
-    }
-    .piece:nth-child(1) .gradient-bg { background: linear-gradient(155deg, #0d1a2d 0%, #1a0a20 50%, #0a1a12 100%); }
-    .piece:nth-child(2) .gradient-bg { background: linear-gradient(155deg, #1a1025 0%, #201a0a 50%, #0a2020 100%); }
-    .piece:nth-child(3) .gradient-bg { background: linear-gradient(155deg, #201510 0%, #0d1a2d 50%, #1a2010 100%); }
-    .piece:nth-child(4) .gradient-bg { background: linear-gradient(155deg, #0a2020 0%, #1a0a18 50%, #201a10 100%); }
-    .piece:nth-child(5) .gradient-bg { background: linear-gradient(155deg, #1b1135 0%, #0d2137 50%, #201510 100%); }
+    .piece:hover { border-color: #c8ff2e33; }
 
-    .play {
-      position: absolute; top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      width: 48px; height: 48px;
-      border-radius: 50%;
-      background: #ffffff15;
-      backdrop-filter: blur(6px);
-      border: 1.5px solid #ffffff25;
-      display: flex; align-items: center; justify-content: center;
-      opacity: 0; transition: opacity .25s;
+    /* top: video area */
+    .piece-video {
+      aspect-ratio: 16 / 9;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid var(--border);
     }
-    .play svg { fill: #fff; width: 16px; height: 16px; margin-left: 2px; }
-    .piece:hover .play { opacity: 1; }
+    .piece:nth-child(1) .piece-video { background: linear-gradient(135deg, #1a0a28 0%, #0d1a2d 50%, #0a1a12 100%); }
+    .piece:nth-child(2) .piece-video { background: linear-gradient(135deg, #201a0a 0%, #0a1a28 50%, #1a1025 100%); }
+    .piece:nth-child(3) .piece-video { background: linear-gradient(135deg, #0a2020 0%, #1a0a18 50%, #201510 100%); }
+    .piece:nth-child(4) .piece-video { background: linear-gradient(135deg, #0d1a2d 0%, #201a0a 50%, #0a2020 100%); }
 
     .piece-num {
-      position: absolute; top: .7rem; left: .7rem;
+      position: absolute; top: 1rem; left: 1rem;
       font-family: 'Space Grotesk', sans-serif;
       font-size: .6rem; font-weight: 700;
       color: var(--accent);
-      background: #00000088;
+      background: #00000077;
       backdrop-filter: blur(6px);
-      padding: .2rem .5rem;
+      padding: .2rem .55rem;
       border-radius: 6px;
       letter-spacing: .08em;
-      z-index: 2;
     }
 
-    /* text side */
-    .piece-body {
-      display: flex; flex-direction: column;
-      justify-content: center;
-      padding: .5rem 0;
+    .play-center {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 60px; height: 60px;
+      border-radius: 50%;
+      background: #ffffff12;
+      backdrop-filter: blur(8px);
+      border: 1.5px solid #ffffff22;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; transition: opacity .25s;
     }
+    .play-center svg { fill: #fff; width: 20px; height: 20px; margin-left: 3px; }
+    .piece:hover .play-center { opacity: 1; }
+
+    /* bottom: text */
+    .piece-body {
+      padding: 1.8rem 2rem 2rem;
+    }
+
+    .piece-comparison {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .comp-box {
+      padding: 1rem 1.1rem;
+      border-radius: 14px;
+      font-size: .8rem;
+      line-height: 1.5;
+    }
+    .comp-before {
+      background: #ff4d4d0c;
+      border: 1px solid #ff4d4d22;
+      color: #ff8a8a;
+    }
+    .comp-after {
+      background: var(--accent-dim);
+      border: 1px solid #c8ff2e22;
+      color: #d4ff6e;
+    }
+    .comp-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: .6rem; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase;
+      margin-bottom: .4rem;
+      display: block;
+    }
+    .comp-before .comp-label { color: #ff6b6b; }
+    .comp-after .comp-label { color: var(--accent); }
+
     .piece-title {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.3rem; font-weight: 700;
+      font-size: 1.25rem; font-weight: 700;
       letter-spacing: -.02em;
       line-height: 1.2;
-      margin-bottom: .6rem;
+      margin-bottom: .5rem;
     }
-    .piece-concept {
-      font-size: .88rem;
+    .piece-desc {
+      font-size: .85rem;
       color: var(--muted);
       font-weight: 300;
       line-height: 1.55;
-      margin-bottom: 1rem;
     }
-    .piece-concept strong {
+    .piece-desc strong {
       color: var(--text);
       font-weight: 500;
-    }
-    .piece-why {
-      font-size: .72rem;
-      color: var(--accent);
-      font-family: 'Space Grotesk', sans-serif;
-      font-weight: 600;
-      letter-spacing: .06em;
-      text-transform: uppercase;
-      margin-bottom: .3rem;
-    }
-    .piece-thesis {
-      font-size: .8rem;
-      color: #a0a0a5;
-      font-style: italic;
-      line-height: 1.5;
-    }
-
-    /* ── TOOLKIT ── */
-    .toolkit-section {
-      max-width: var(--max-w);
-      margin: 0 auto;
-      padding: 0 2rem 4rem;
-      border-top: 1px solid var(--border);
-      padding-top: 2.5rem;
-    }
-    .toolkit-label {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: .7rem; font-weight: 600;
-      letter-spacing: .15em; text-transform: uppercase;
-      color: var(--accent); margin-bottom: 1rem;
-    }
-    .toolkit-pills {
-      display: flex; flex-wrap: wrap; gap: .6rem;
-    }
-    .tool {
-      padding: .45rem 1rem;
-      border: 1px solid var(--border);
-      border-radius: 80px;
-      font-size: .75rem; font-weight: 500;
-      color: var(--muted);
     }
 
     /* ── FOOTER ── */
@@ -241,18 +208,11 @@
     .footer-links a:hover { color: var(--accent); }
 
     /* ── RESPONSIVE ── */
-    @media (max-width: 700px) {
-      .piece {
-        grid-template-columns: 1fr;
-        gap: 1.2rem;
-      }
-      .piece-phone {
-        max-width: 200px;
-        margin: 0 auto;
-      }
-      .hero { padding: 4rem 1.2rem 1.5rem; }
-      .pieces { padding: 1.5rem 1.2rem 4rem; }
-      .piece { padding: 1.2rem; }
+    @media (max-width: 600px) {
+      .hero { padding: 3.5rem 1.2rem 1rem; }
+      .pieces { padding: 2rem 1.2rem 4rem; }
+      .piece-body { padding: 1.4rem 1.2rem 1.6rem; }
+      .piece-comparison { grid-template-columns: 1fr; }
       .piece-title { font-size: 1.1rem; }
       footer { padding: 2rem 1.2rem; }
     }
@@ -265,157 +225,138 @@
 <body>
 
 <div class="topbar">
-  <div class="topbar-name">tu<span>.</span>nombre</div>
+  <div class="topbar-name">Jesús<span>.</span>Burrueco</div>
   <a href="mailto:tu@email.com">Contactar</a>
 </div>
 
 <!-- HERO -->
 <div class="hero">
-  <div class="hero-label">5 ideas · 5 reels · 1 visión</div>
-  <h1>Los reels que <em>todavía no existen</em></h1>
+  <div class="hero-label">Edición de reels</div>
+  <h1>Mismo contenido, <em>el doble de retención</em></h1>
   <p class="hero-sub">
-    No edito lo que ya funciona. Edito lo que va a funcionar mañana.
-    Estas 5 piezas son mi apuesta sobre hacia dónde va el formato.
+    4 técnicas de edición que convierten un reel normal en uno
+    que la gente no puede dejar de ver. Sin cambiar el guion,
+    sin cambiar la cámara — solo la edición.
   </p>
-  <hr class="hero-line" />
 </div>
 
 <!-- PIECES -->
 <div class="pieces">
 
-  <!-- 1 — CORTE INVISIBLE -->
+  <!-- 1 — SUBTÍTULOS CON VIDA PROPIA -->
   <a class="piece" href="#" target="_blank">
-    <div class="piece-phone">
-      <div class="gradient-bg"></div>
-      <span class="piece-num">01 / 05</span>
-      <div class="play"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
+    <div class="piece-video">
+      <span class="piece-num">01 / 04</span>
+      <div class="play-center"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
     </div>
     <div class="piece-body">
-      <h2 class="piece-title">El corte invisible</h2>
-      <p class="piece-concept">
-        <strong>Parece un solo plano continuo, pero hay 8 cortes escondidos.</strong>
-        El espectador no ve ningún cambio de plano, así que su cerebro
-        nunca encuentra un "momento para irse". No sabe por qué no puede
-        dejar de mirar. Simplemente no puede.
-      </p>
-      <div class="piece-why">Por qué va a ganar</div>
-      <p class="piece-thesis">
-        Todo el mundo compite con transiciones cada vez más llamativas.
-        El futuro es al revés: la mejor transición es la que no se ve.
+      <h2 class="piece-title">Subtítulos con vida propia</h2>
+      <div class="piece-comparison">
+        <div class="comp-box comp-before">
+          <span class="comp-label">Lo normal</span>
+          Subtítulos auto-generados, misma fuente, misma posición, misma animación en todo el reel.
+        </div>
+        <div class="comp-box comp-after">
+          <span class="comp-label">Mi versión</span>
+          La palabra clave sale GRANDE detrás del creador. Colores distintos para positivo/negativo. El subtítulo se siente, no solo se lee.
+        </div>
+      </div>
+      <p class="piece-desc">
+        <strong>La palabra importante ocupa toda la pantalla</strong> por detrás
+        del creador (usando máscara), las palabras secundarias
+        aparecen más pequeñas arriba o abajo. Cuando el creador dice
+        algo negativo el texto sale en rojo, cuando es positivo en verde.
+        El resultado: el espectador procesa el mensaje con los ojos
+        sin necesidad de leer.
       </p>
     </div>
   </a>
 
-  <!-- 2 — SOUND-FIRST -->
+  <!-- 2 — MULTI-ÁNGULO FALSO -->
   <a class="piece" href="#" target="_blank">
-    <div class="piece-phone">
-      <div class="gradient-bg"></div>
-      <span class="piece-num">02 / 05</span>
-      <div class="play"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
+    <div class="piece-video">
+      <span class="piece-num">02 / 04</span>
+      <div class="play-center"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
     </div>
     <div class="piece-body">
-      <h2 class="piece-title">Sound-first</h2>
-      <p class="piece-concept">
-        <strong>Primero se crea el sonido. Después se graba lo que se ve.</strong>
-        En vez de buscar una canción que "pegue" con el video,
-        diseño los sonidos reales del producto — el clic, el roce,
-        la gota — y construyo las imágenes alrededor de esos sonidos.
-        Si cierras los ojos, el reel sigue funcionando.
-      </p>
-      <div class="piece-why">Por qué va a ganar</div>
-      <p class="piece-thesis">
-        TikTok ya premia audios originales sobre trending sounds.
-        Quien domine el sonido controla el algoritmo.
+      <h2 class="piece-title">Multi-ángulo falso</h2>
+      <div class="piece-comparison">
+        <div class="comp-box comp-before">
+          <span class="comp-label">Lo normal</span>
+          Una cámara, un plano medio fijo. Jump cuts directos donde se nota el salto.
+        </div>
+        <div class="comp-box comp-after">
+          <span class="comp-label">Mi versión</span>
+          Con UNA grabación simulo 3 ángulos: plano medio, perfil y close-up. Parece grabado con 3 cámaras.
+        </div>
+      </div>
+      <p class="piece-desc">
+        <strong>Recorto y reposiciono el mismo clip</strong> en tres encuadres
+        distintos: centro (plano medio), izquierda (simula perfil),
+        y zoom a la cara (close-up). Los cortes entre "ángulos"
+        rompen la monotonía del talking head y le dan ritmo de
+        entrevista profesional sin necesitar más equipo.
       </p>
     </div>
   </a>
 
-  <!-- 3 — VERTICAL CINEMA -->
+  <!-- 3 — B-ROLL RÍTMICO -->
   <a class="piece" href="#" target="_blank">
-    <div class="piece-phone">
-      <div class="gradient-bg"></div>
-      <span class="piece-num">03 / 05</span>
-      <div class="play"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
+    <div class="piece-video">
+      <span class="piece-num">03 / 04</span>
+      <div class="play-center"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
     </div>
     <div class="piece-body">
-      <h2 class="piece-title">Vertical cinema</h2>
-      <p class="piece-concept">
-        <strong>Usar el formato vertical como si fuera un idioma nuevo.</strong>
-        El 95% de los reels son planos horizontales recortados.
-        Nadie usa la verticalidad a propósito: reflejos en charcos
-        como mitad inferior, composiciones techo-suelo, movimientos
-        de cámara de arriba a abajo. El formato lleva años y nadie
-        ha inventado su gramática visual.
-      </p>
-      <div class="piece-why">Por qué va a ganar</div>
-      <p class="piece-thesis">
-        Quien defina cómo se compone en vertical
-        define el estándar que todos copiarán después.
+      <h2 class="piece-title">B-roll a prueba de scroll</h2>
+      <div class="piece-comparison">
+        <div class="comp-box comp-before">
+          <span class="comp-label">Lo normal</span>
+          El creador habla y metes un clip de relleno sin ritmo, sin transición. Dura demasiado y el espectador se va.
+        </div>
+        <div class="comp-box comp-after">
+          <span class="comp-label">Mi versión</span>
+          El b-roll entra con un zoom-in rápido en la palabra clave, dura 1-2 segundos y vuelve al creador con un snap-back.
+        </div>
+      </div>
+      <p class="piece-desc">
+        <strong>Cada inserción de b-roll tiene entrada, clímax y salida</strong>
+        en menos de 2 segundos. Entra con zoom, sale con corte seco
+        de vuelta al creador. El voiceover nunca para — el b-roll
+        es un flash visual que refuerza el mensaje sin interrumpir
+        el ritmo. Añado un SFX sutil (swoosh o impact) en cada entrada.
       </p>
     </div>
   </a>
 
-  <!-- 4 — DATOS COMO ESTÉTICA -->
+  <!-- 4 — PANTALLA DIVIDIDA DINÁMICA -->
   <a class="piece" href="#" target="_blank">
-    <div class="piece-phone">
-      <div class="gradient-bg"></div>
-      <span class="piece-num">04 / 05</span>
-      <div class="play"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
+    <div class="piece-video">
+      <span class="piece-num">04 / 04</span>
+      <div class="play-center"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
     </div>
     <div class="piece-body">
-      <h2 class="piece-title">Datos como estética</h2>
-      <p class="piece-concept">
-        <strong>La información aparece como si fuera una app.</strong>
-        En vez de poner texto plano en pantalla, la información
-        aparece como notificaciones, barras de progreso, toggles
-        y tarjetas que hacen swipe — el lenguaje visual que la gente
-        ya entiende de estar 6 horas al día usando interfaces.
-      </p>
-      <div class="piece-why">Por qué va a ganar</div>
-      <p class="piece-thesis">
-        El contenido educativo explota pero todos usan la misma
-        tipografía cinética. El siguiente salto es usar UI como narrativa.
+      <h2 class="piece-title">Pantalla dividida dinámica</h2>
+      <div class="piece-comparison">
+        <div class="comp-box comp-before">
+          <span class="comp-label">Lo normal</span>
+          Split estático 50/50 que se queda ahí todo el reel. O directamente el creador hablando sin apoyo visual.
+        </div>
+        <div class="comp-box comp-after">
+          <span class="comp-label">Mi versión</span>
+          El split empieza pequeño abajo y va creciendo hasta ocupar toda la pantalla cuando llega el punto clave.
+        </div>
+      </div>
+      <p class="piece-desc">
+        <strong>El creador habla arriba, el ejemplo aparece abajo</strong>
+        — grabación de pantalla, producto, proceso. La parte de abajo
+        empieza como franja fina y crece con keyframes hasta dominar el frame
+        en el momento de mayor impacto. Después vuelve al creador.
+        El movimiento del split guía la atención sin que el espectador
+        lo decida conscientemente.
       </p>
     </div>
   </a>
 
-  <!-- 5 — GLITCH DE REALIDAD -->
-  <a class="piece" href="#" target="_blank">
-    <div class="piece-phone">
-      <div class="gradient-bg"></div>
-      <span class="piece-num">05 / 05</span>
-      <div class="play"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
-    </div>
-    <div class="piece-body">
-      <h2 class="piece-title">Glitch de realidad</h2>
-      <p class="piece-concept">
-        <strong>Un reel que hackea la propia app.</strong>
-        El video simula que se ha quedado cargando — y cuando "vuelve",
-        el contenido ha cambiado. O el dedo del creador "toca" los
-        botones de Instagram desde dentro del video. El espectador
-        no sabe qué es real y qué es parte del reel.
-      </p>
-      <div class="piece-why">Por qué va a ganar</div>
-      <p class="piece-thesis">
-        Cuando todo se ve igual en el feed, solo lo que rompe
-        la expectativa del formato en sí consigue parar el scroll.
-      </p>
-    </div>
-  </a>
-
-</div>
-
-<!-- TOOLKIT -->
-<div class="toolkit-section">
-  <div class="toolkit-label">Herramientas</div>
-  <div class="toolkit-pills">
-    <span class="tool">CapCut Pro</span>
-    <span class="tool">Premiere Pro</span>
-    <span class="tool">After Effects</span>
-    <span class="tool">DaVinci Resolve</span>
-    <span class="tool">Photoshop</span>
-    <span class="tool">Audition</span>
-  </div>
 </div>
 
 <footer>
@@ -424,7 +365,6 @@
     <a href="mailto:tu@email.com">Email</a>
     <a href="https://instagram.com/tu_handle" target="_blank">Instagram</a>
     <a href="https://tiktok.com/@tu_handle" target="_blank">TikTok</a>
-    <a href="https://linkedin.com/in/tu_perfil" target="_blank">LinkedIn</a>
   </div>
 </footer>
 
